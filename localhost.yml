@@ -92,6 +92,7 @@
       - { repo: "https://github.com/powerline/fonts.git" , dest: "~/.mac/git/powerline/fonts" }
       - { repo: "git@github.com:zenorocha/dracula-theme.git" , dest: "~/.mac/git/zenorocha/dracula-theme" }
       - { repo: "https://github.com/rupa/z.git" , dest: "~/.mac/git/rupa/z" }
+      - { repo: "https://github.com/zsh-users/antigen.git" , dest: "~/.mac/git/zsh-users/antigen" }
   tasks:
     - name: homebrew の tap リポジトリを追加
       homebrew_tap: tap={{ item }} state=present
@@ -164,6 +165,12 @@
       args:
         creates: ~/Library/Fonts/Ricty-Bold.ttf
       notify: run fc-cache
+
+    # setup shells
+    - name: z のセットアップ
+      shell: cp ~/.mac/git/rupa/z/z.sh ~/.mac/z.sh ; chmod +x ~/.mac/z.sh
+    - name: antigen のセットアップ
+      shell: cp ~/.mac/git/zsh-users/antigen/antigen.zsh ~/.mac/antigen.zsh ; chmod +x ~/.mac/antigen.zsh
 
   handlers:
     - name: run fc-cache
